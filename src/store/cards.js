@@ -20,6 +20,19 @@ const cardSlice = createSlice({
     img:img1,
     para1:"20% Off On Tank Tops",
     para2:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac dictum.",
+  },
+  {
+    id:"3",
+    img:img1,
+    para1:"20% Off On Tank Tops",
+    para2:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac dictum.",
+  }
+  ,
+  {
+    id:"3",
+    img:img1,
+    para1:"20% Off On Tank Tops",
+    para2:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac dictum.",
   }]} 
 })
 

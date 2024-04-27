@@ -4,10 +4,31 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap:50px;
+
+}
+.slider {
+  height:600px;
+  width:95vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: aqua;
+}
+.slide {
+  height:560px ;
+  width:1300px;
+  padding: 10px 30px;
+  background-color: azure;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+.slide::-webkit-scrollbar {
+  width: 0;
 }
 .parentCard {
   height:550px;
+  display: inline-block;
   width:400px;
   position: relative;
   overflow: hidden; 
@@ -56,4 +77,7 @@
   background-color: black;
   color: white;
   border: 2px solid black;
+}
+.navigator {
+  font-size: 90px;
 }
