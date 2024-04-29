@@ -12,16 +12,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: aqua;
 }
 .slide {
   height:560px ;
   width:1300px;
-  padding: 10px 30px;
-  background-color: azure;
-  overflow-x: scroll;
+  padding: 20px 0px;
   overflow-y: hidden;
-  white-space: nowrap;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  white-space: nowrap; /* Keep all cards in a single line */
+  transition: transform 0.5s ease;
+
+
 }
 .slide::-webkit-scrollbar {
   width: 0;
@@ -33,6 +34,7 @@
   position: relative;
   overflow: hidden; 
   object-fit: cover;
+  margin-right: 35px ;
    
 }
 .card {
