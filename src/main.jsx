@@ -1,21 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Dashboard from "./routes/Dashboard.jsx";
 import BackImage from "./components/BackImage.jsx";
 import TextOnHero from "./components/TextOnHero.jsx";
 import HeroCard from "./components/HeroCard.jsx";
 import {Provider} from "react-redux";
 import eComStore from "./store/index.js";
+import ShopSection from "./components/ShopSection.jsx";
+import App from "./routes/App.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Dashboard />,
+    element: <App />,
     children: [
       {
         path: "/",
-        element: [<BackImage />,<TextOnHero/>,<HeroCard/>]
+        element: [<BackImage />,<TextOnHero/>,<HeroCard/>,<ShopSection/>]
       },
     ],
   },
