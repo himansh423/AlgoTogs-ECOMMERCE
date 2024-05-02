@@ -22,14 +22,14 @@ const cardSlice = createSlice({
     para2:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac dictum.",
   },
   {
-    id:"3",
+    id:"4",
     img:img1,
     para1:"20% Off On Tank Tops",
     para2:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac dictum.",
   }
   ,
   {
-    id:"3",
+    id:"5",
     img:img1,
     para1:"20% Off On Tank Tops",
     para2:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac dictum.",

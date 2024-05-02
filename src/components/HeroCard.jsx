@@ -25,7 +25,7 @@ const HeroCard = () => {
         />
         <div className={styles.slide}>
           {cardObj.map((card) => (
-            <div key={cardObj.id} style={styling} className={styles.parentCard}>
+            <div key={card.id} style={styling} className={styles.parentCard}>
               <img src={card.img} alt="" className={styles.card} />
               <div className={styles.info}>
                 <p className={styles.para1}>{card.para1}</p>

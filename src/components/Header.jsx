@@ -11,25 +11,25 @@ const Header = () => {
           <a href="#" className={styles.brand}>
             <img src={logoImg} />
           </a>
-          <a class={styles.links} href="">
+          <a className={styles.links} href="">
             EVERYTHING
           </a>
-          <a class={styles.links} href="">
+          <a className={styles.links} href="">
             WOMEN
           </a>
-          <a class={styles.links} href="">
+          <a className={styles.links} href="">
             MEN
           </a>
-          <a class={styles.links} href="">
+          <a className={styles.links} href="">
             ACCESSORIES
           </a>
         </div>
 
         <div className={styles.optContainerChild2}>
-          <a  class={styles.links} href="">About</a>
-          <a class={styles.links} href="">Contact Us</a>
-          <a class={styles.links} href=""><FaShoppingCart/></a>
-          <a class={styles.links} href=""><FaUserAlt/></a>
+          <a  className={styles.links} href="">About</a>
+          <a className={styles.links} href="">Contact Us</a>
+          <a className={styles.links} href=""><FaShoppingCart/></a>
+          <a className={styles.links} href=""><FaUserAlt/></a>
         </div>
       </div>
     </header>

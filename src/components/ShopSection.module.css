@@ -1,20 +1,28 @@
 
 h1 {
-  width:100vw;
-  height:220px;
+  width:80vw;
+  height:140px;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-bottom: 2px solid black;
+
 }
 .container {
-  height:800px;
+  height:1300px;
   width: 100vw;
-  padding:0px 100px;
+  padding:30px 100px;
+  display: flex;
+  justify-content: center;
+  gap:20px;
+  flex-wrap: wrap;
+  background-color: #f5f7f9;
 }
 .shopCard {
   height:404px;
   width:250px;
-  position: absolute;
+overflow: hidden;
+  /* position: absolute; */
 }
 .img{
   height: 248px;
@@ -40,11 +48,72 @@ del {
   margin-right: 8px;
 }
 .carticon {
-  position: absolute;
-  top: 10px;
-  right: 10px;
+  position: relative;
+  top: 43px;
+  left: 210px;
   z-index: 10;
-  font-size: 20px;
+  font-size: 30px;
   color: white;
+  visibility: hidden;
 }
 
+
+.container2 {
+  width:100vw;
+  height:1000px;
+  display: flex;
+  justify-content: center;
+ align-items: space-evenly;
+}
+.image {
+  width:1350px;
+  height:500px;
+  background-image:url("../assets/backcloth.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  padding-top:130px;
+  padding-left: 100px;
+}
+.shopNow {
+  width:140px;
+  height: 50px;
+  border: 2px solid white;
+  text-decoration: none;
+  padding: 10px 24px;
+  color: white;
+  background-color: white;
+  color: black;
+}
+.shopNow:hover {
+  background-color: black;
+  color: white;
+  border: 2px solid black;
+}
+.limited {
+  font-size: 20px;
+  color:white;
+  font-family: sans-serif;
+  font-weight: 540;
+  height: auto;
+}
+.edition {
+  font-size: 40px;
+  color:white;
+  font-family: sans-serif;
+  font-weight: 540;
+  height: auto;
+  text-align: start;
+}
+.discription {
+  width:600px;
+  text-align: start;
+  color:white;
+  font-family: sans-serif;
+}
+.discount {
+  font-size: 20px;
+  color:white;
+  font-family: sans-serif;
+  margin-bottom: 30px;
+}
