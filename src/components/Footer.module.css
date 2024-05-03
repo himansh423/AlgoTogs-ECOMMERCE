@@ -1,0 +1,47 @@
+footer {
+  height:500px;
+  width:100vw;
+}
+.offer {
+  height:120px;
+  width:100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1.5px solid grey;
+}
+.offer p {
+  font-size: 30px;
+  font-family: sans-serif;
+  margin-bottom: 0px;
+}
+.mainFooter {
+  height:330px;
+  width:100vw;
+  display: flex;
+  justify-content: space-evenly;
+  /* align-items: center; */
+}
+.logoContainer {
+  width:400px;
+  margin-top: 30px;
+  
+}
+.logoFooter {
+  height:150px;
+  width:150px;
+}
+.slogan{
+  font-size: 25px;
+  font-family: sans-serif;
+}
+.forHer {
+  width:200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.forHer a {
+  text-decoration: none;
+  color:grey;
+}

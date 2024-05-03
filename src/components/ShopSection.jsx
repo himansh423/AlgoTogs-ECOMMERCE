@@ -1,8 +1,11 @@
-import img from "../assets/backcloth.jpeg";
 import { shopCardAction } from "../store/shopCard";
 import styles from "./ShopSection.module.css";
 import { MdAddShoppingCart } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
+import { IoGlobeOutline } from "react-icons/io5";
+import { GiClothes } from "react-icons/gi";
+import { BiSolidOffer } from "react-icons/bi";
+import { GrSecure } from "react-icons/gr";
 const ShopSection = () => {
   const { shopCards } = useSelector((store) => store.shopCard);
   const { style } = useSelector((store) => store.shopCard);
@@ -56,10 +59,42 @@ const ShopSection = () => {
             repellendus voluptates quas eum, odio incidunt dolore necessitatibus
             voluptas harum sint.
           </p>
-          <p className={styles.discount}>Buy This T-shirt At 20% Discount, Use Code OFF20</p>
+          <p className={styles.discount}>
+            Buy This T-shirt At 20% Discount, Use Code OFF20
+          </p>
           <a href="" className={styles.shopNow}>
             SHOP NOW
           </a>
+        </div>
+      </div>
+      <div className={styles.container3}>
+        <div className={styles.feature}>
+          <IoGlobeOutline className={styles.icon} />
+          <h5>Worldwide Shipping</h5>
+          <p>
+            It elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
+          </p>
+        </div>
+        <div className={styles.feature}>
+          <GiClothes className={styles.icon} />
+          <h5>Best Quality</h5>
+          <p>
+            It elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
+          </p>
+        </div>
+        <div className={styles.feature}>
+          <BiSolidOffer className={styles.icon}/>
+          <h5>Best Offers</h5>
+          <p>
+            It elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
+          </p>
+        </div>
+        <div className={styles.feature}>
+          <GrSecure className={styles.icon}/>
+          <h5>Secure Payments</h5>
+          <p>
+            It elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
+          </p>
         </div>
       </div>
     </>
