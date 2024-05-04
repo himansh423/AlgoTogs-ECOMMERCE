@@ -21,6 +21,22 @@ const Footer = () => {
           <a href="">Heels and Flats</a>
           <a href="">Women Accessories</a>
         </div>
+        <div className={styles.forHim}>
+          <h4>For Him</h4>
+          <a href="">Men Jeans</a>
+          <a href="">Men Shirts</a>
+          <a href="">Men Shoes</a>
+          <a href="">Men Accessories</a>
+          <a href="">Men Jackets</a>
+        </div>
+        <div className={styles.subscribeInput}>
+          <p>Subscribe</p>
+          <input type="text" placeholder="Your Email Address..." />
+          <button>Subscribe</button>
+        </div>
+      </div>
+      <div className={styles.copyrightContainer}>
+        <p>Copyright © 2024 AlgoTags. Powered by AlgoTags.</p>
       </div>
     </footer>
   );
