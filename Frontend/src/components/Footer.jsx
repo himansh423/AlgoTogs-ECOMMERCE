@@ -1,6 +1,29 @@
 import styles from "./Footer.module.css";
 import logo from "../assets/Algo_tags_logo-r.png";
+import { useRef } from "react";
+import axios from "axios";
 const Footer = () => {
+
+
+  const input = useRef();
+  const handleOnSubcribe = async () => {
+    const email = input.current.value;
+    const subscriberData = {
+      email: email,
+    }
+    try {
+      const res = await axios.post("http://localhost:8080/subscriber",subscriberData);
+      console.log(res.data);
+    }
+    catch(error) {
+   console.log(error);
+    }
+   
+
+  }
+
+  
+
   return (
     <footer>
       <div className={styles.offer}>
@@ -31,8 +54,11 @@ const Footer = () => {
         </div>
         <div className={styles.subscribeInput}>
           <p>Subscribe</p>
-          <input type="text" placeholder="Your Email Address..." />
-          <button>Subscribe</button>
+          <input 
+          type="text"
+          placeholder="Your Email Address..."
+          ref={input} />
+          <button onClick={handleOnSubcribe}>Subscribe</button>
         </div>
       </div>
       <div className={styles.copyrightContainer}>

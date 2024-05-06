@@ -6,6 +6,8 @@ import { IoGlobeOutline } from "react-icons/io5";
 import { GiClothes } from "react-icons/gi";
 import { BiSolidOffer } from "react-icons/bi";
 import { GrSecure } from "react-icons/gr";
+import axios from "axios";
+import { useEffect, useState } from "react";
 const ShopSection = () => {
   const { shopCards } = useSelector((store) => store.shopCard);
   const { style } = useSelector((store) => store.shopCard);
@@ -16,28 +18,38 @@ const ShopSection = () => {
   const handleOnMouseLeave = (id) => {
     dispatch(shopCardAction.stylingLeave({ cardId: id }));
   };
+
+  const getProductHome = async () => {
+    const res = await axios.get("http://localhost:8080/producthome");
+    console.log(res.data);
+    dispatch(shopCardAction.shopCardData({ data: res.data }));
+  };
+
+  useEffect(() => {
+    getProductHome();
+  }, []);
   return (
     <>
       <div className={styles.container}>
         <h1>Featured Products</h1>
         {shopCards.map((shopCard) => (
           <div
-            key={shopCard.id}
+            key={shopCard._id}
             className={styles.shopCard}
-            onMouseOver={() => handleOnMouseOver(shopCard.id)}
-            onMouseLeave={() => handleOnMouseLeave(shopCard.id)}
+            onMouseOver={() => handleOnMouseOver(shopCard._id)}
+            onMouseLeave={() => handleOnMouseLeave(shopCard._id)}
           >
             <MdAddShoppingCart
               className={styles.carticon}
-              style={style[shopCard.id]}
+              style={style[shopCard._id]}
             />
             <img src={shopCard.img} className={styles.img} alt="" />
             <div className={styles.details}>
               <h5>{shopCard.title}</h5>
-              <p className={styles.men}>{shopCard.for}</p>
+              <p className={styles.men}>{shopCard.category}</p>
               <p className={styles.price}>
-                <del>{shopCard.cutPrice}</del>
-                {shopCard.originalPrice}
+                <del>{shopCard.cuttedPrice}</del>
+                {shopCard.price}
               </p>
               <div className={styles.rating}>
                 <span className="fa fa-star checked"></span>
@@ -83,14 +95,14 @@ const ShopSection = () => {
           </p>
         </div>
         <div className={styles.feature}>
-          <BiSolidOffer className={styles.icon}/>
+          <BiSolidOffer className={styles.icon} />
           <h5>Best Offers</h5>
           <p>
             It elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
           </p>
         </div>
         <div className={styles.feature}>
-          <GrSecure className={styles.icon}/>
+          <GrSecure className={styles.icon} />
           <h5>Secure Payments</h5>
           <p>
             It elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
