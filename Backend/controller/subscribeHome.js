@@ -11,3 +11,21 @@ exports.postSubscribeHome = async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 };
+exports.getSubscribeHome = async (req, res) => {
+  try {
+    const subUser = await subscribeHome.find();
+    res.json(subUser);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+exports.getSubscribeHomeONE = async (req, res) => {
+  try {
+    let email = req.params.email;
+    const subUser = await subscribeHome.findOne({email:email});
+    res.json(subUser);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+

@@ -88,3 +88,9 @@ footer {
   color: gray;
   
 }
+.afterSubscribe {
+  width:250px;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+}

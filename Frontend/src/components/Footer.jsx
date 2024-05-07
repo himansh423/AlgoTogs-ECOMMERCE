@@ -2,27 +2,48 @@ import styles from "./Footer.module.css";
 import logo from "../assets/Algo_tags_logo-r.png";
 import { useRef } from "react";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { subscribeToggleAction } from "../store/subscribeToggle";
 const Footer = () => {
-
-
+  const { toggle,loaderToggle } = useSelector((store) => store.subscribeToggle);
+  const disptach = useDispatch();
   const input = useRef();
+  const loaderT = () => {
+    disptach(subscribeToggleAction.styleToggle());
+}
+const loaderF = () => {
+  disptach(subscribeToggleAction.styleToggle2());
+}
   const handleOnSubcribe = async () => {
     const email = input.current.value;
     const subscriberData = {
       email: email,
+    };
+    loaderT();
+    const checkExistingEmail = await axios.get(`http://localhost:8080/subscriber/${email}`);
+    if (checkExistingEmail.data) {
+      alert("Email already subscribed!");
+      loaderF();
+      return;
     }
     try {
-      const res = await axios.post("http://localhost:8080/subscriber",subscriberData);
+      const res = await axios.post(
+        "http://localhost:8080/subscriber",
+        subscriberData
+      );
       console.log(res.data);
+      disptach(subscribeToggleAction.toggled());
+    } catch (error) {
+      console.log(error);
+      alert("enter valid email address");
+      loaderF();
     }
-    catch(error) {
-   console.log(error);
-    }
-   
 
-  }
+    input.current.value = null;
 
-  
+  };
+
+ 
 
   return (
     <footer>
@@ -52,14 +73,11 @@ const Footer = () => {
           <a href="">Men Accessories</a>
           <a href="">Men Jackets</a>
         </div>
-        <div className={styles.subscribeInput}>
+        {toggle?<div className={styles.afterSubscribe}><p >Thanks for signing up for the newsletter! We'll be in touch soon.</p></div>:<div className={styles.subscribeInput}>
           <p>Subscribe</p>
-          <input 
-          type="text"
-          placeholder="Your Email Address..."
-          ref={input} />
-          <button onClick={handleOnSubcribe}>Subscribe</button>
-        </div>
+          <input type="text" placeholder="Your Email Address..." ref={input} />
+          <button style={loaderToggle} onClick={handleOnSubcribe}>Subscribe</button>
+        </div>}
       </div>
       <div className={styles.copyrightContainer}>
         <p>Copyright © 2024 AlgoTags. Powered by AlgoTags.</p>

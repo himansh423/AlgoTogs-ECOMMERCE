@@ -7,7 +7,7 @@ import { GiClothes } from "react-icons/gi";
 import { BiSolidOffer } from "react-icons/bi";
 import { GrSecure } from "react-icons/gr";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 const ShopSection = () => {
   const { shopCards } = useSelector((store) => store.shopCard);
   const { style } = useSelector((store) => store.shopCard);
