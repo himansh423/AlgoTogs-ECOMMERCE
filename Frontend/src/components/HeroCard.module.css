@@ -4,6 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #f5f7f9;
 }
 .slider {
   height:600px;
@@ -13,7 +14,7 @@
   align-items: center;
   background-color: white;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
-  border-radius: 30px;
+  border-radius: 20px;
 }
 .slide {
   height:560px ;
@@ -25,24 +26,23 @@
   transition: transform 0.5s ease;
   border-radius: 20px;
 
-
 }
 .slide::-webkit-scrollbar {
   width: 0;
 }
 .parentCard {
-  height:550px;
+  height:530px;
   display: inline-block;
   width:400px;
   position: relative;
   overflow: hidden; 
   object-fit: cover;
   margin-right: 35px ;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
 }
+
 .card {
   height:530px;
-  width:390px;
+  width:400px;
   position: absolute;
   top: 0;
   left: 0; 

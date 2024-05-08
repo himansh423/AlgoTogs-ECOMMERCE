@@ -4,9 +4,22 @@ import { MdNavigateNext } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import {cardAction} from "../store/cardAction"
+import axios from "axios";
+import { useEffect } from "react";
+import { cardActions } from "../store/cards";
 const HeroCard = () => {
   const { cardObj } = useSelector((store) => store.cards);
   const { styling } = useSelector((store) => store.cardAction);
+
+  const getCards = async () => {
+    const res = await axios.get("http://localhost:8080/cardHome");
+    console.log(res.data);
+    dispatch(cardActions.cardContent({ data: res.data }));
+  };
+  useEffect(() => {
+    getCards();
+  }, []);
+  
   const dispatch = useDispatch();
   const handleOnleftClick = () => {
     dispatch(cardAction.prevClick());
@@ -25,11 +38,11 @@ const HeroCard = () => {
         />
         <div className={styles.slide}>
           {cardObj.map((card) => (
-            <div key={card.id} style={styling} className={styles.parentCard}>
+            <div key={card._id} style={styling} className={styles.parentCard}>
               <img src={card.img} alt="" className={styles.card} />
               <div className={styles.info}>
-                <p className={styles.para1}>{card.para1}</p>
-                <p className={styles.para2}>{card.para2}</p>
+                <p className={styles.para1}>{card.title}</p>
+                <p className={styles.para2}>{card.description}</p>
                 <a href="" className={styles.shopNow}>
                   SHOP NOW
                 </a>

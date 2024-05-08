@@ -5,6 +5,8 @@ const server = express();
 
 const productHomeRouter = require('./routes/productHome');
 const subscribeHomeRouter = require('./routes/subscribeHome');
+const cardHomeRouter = require('./routes/cardHome');
+const landingPageRouter = require('./routes/landingPage');
 
 
 
@@ -20,8 +22,11 @@ async function main() {
 
 server.use(cors());
 server.use(express.json());
+server.use('/',landingPageRouter.router);
+server.use('/cardHome',cardHomeRouter.router);
 server.use('/producthome',productHomeRouter.router);
 server.use('/subscriber',subscribeHomeRouter.router);
+
 
 server.listen(process.env.PORT, () => {
   console.log("server started");
