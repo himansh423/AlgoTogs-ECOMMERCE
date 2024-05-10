@@ -7,6 +7,7 @@ const productHomeRouter = require('./routes/productHome');
 const subscribeHomeRouter = require('./routes/subscribeHome');
 const cardHomeRouter = require('./routes/cardHome');
 const landingPageRouter = require('./routes/landingPage');
+const cartItemRouter = require('./routes/cartItem');
 
 
 
@@ -26,7 +27,7 @@ server.use('/',landingPageRouter.router);
 server.use('/cardHome',cardHomeRouter.router);
 server.use('/producthome',productHomeRouter.router);
 server.use('/subscriber',subscribeHomeRouter.router);
-
+server.use('/cartItem',cartItemRouter.router);
 
 server.listen(process.env.PORT, () => {
   console.log("server started");

@@ -8,6 +8,7 @@ import {Provider} from "react-redux";
 import eComStore from "./store/index.js";
 import ShopSection from "./components/ShopSection.jsx";
 import App from "./routes/App.jsx";
+import CartSide from "./components/CartSide.jsx";
 
 const router = createBrowserRouter([
   {
@@ -16,7 +17,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: [<BackImage />,<TextOnHero/>,<HeroCard/>,<ShopSection/>]
+        element: [<BackImage />,<TextOnHero/>,<HeroCard/>,<ShopSection/>,<CartSide/>]
       },
     ],
   },

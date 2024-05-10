@@ -4,6 +4,7 @@ import cardActionSlice from "./cardAction";
 import shopCardSlice from "./shopCard";
 import subscribeToggleSlice from './subscribeToggle';
 import landingPageSlice from "./landingPage";
+import cartSlice from "./cart";
 
 const eComStore = configureStore({
   reducer : {
@@ -12,6 +13,7 @@ const eComStore = configureStore({
     shopCard:shopCardSlice.reducer,
     subscribeToggle:subscribeToggleSlice.reducer,
     landingPage:landingPageSlice.reducer,
+    cart:cartSlice.reducer,
   } 
 })
 

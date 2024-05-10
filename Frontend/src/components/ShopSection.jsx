@@ -8,8 +8,10 @@ import { BiSolidOffer } from "react-icons/bi";
 import { GrSecure } from "react-icons/gr";
 import axios from "axios";
 import { useEffect } from "react";
+import { cartAction } from "../store/cart";
 const ShopSection = () => {
   const { shopCards } = useSelector((store) => store.shopCard);
+  const { cartItem } = useSelector((store) => store.cart);
   const { style } = useSelector((store) => store.shopCard);
   const dispatch = useDispatch();
   const handleOnMouseOver = (id) => {
@@ -24,6 +26,26 @@ const ShopSection = () => {
     console.log(res.data);
     dispatch(shopCardAction.shopCardData({ data: res.data }));
   };
+  const postCartItem = async (data) => {
+    const cartItemWithoutId = {
+      _id:data._id,
+      img: data.img,
+      title: data.title,
+      quantity:123,
+      cuttedPrice: data.cuttedPrice,
+      price: data.price,
+    };
+    const res = await axios.post(
+      "http://localhost:8080/cartItem/",
+      cartItemWithoutId
+    );
+    console.log(res.data);
+  };
+  const cartAdd = async (id) => {
+    const res = await axios.get(`http://localhost:8080/producthome/${id}`);
+    dispatch(cartAction.addCartItem({ data: res.data }));
+    postCartItem(res.data);
+  };
 
   useEffect(() => {
     getProductHome();
@@ -31,7 +53,7 @@ const ShopSection = () => {
   return (
     <>
       <div className={styles.container}>
-        <h1>Featured Products</h1>
+        <h1 className={styles.h1}>Featured Products</h1>
         {shopCards.map((shopCard) => (
           <div
             key={shopCard._id}
@@ -42,6 +64,7 @@ const ShopSection = () => {
             <MdAddShoppingCart
               className={styles.carticon}
               style={style[shopCard._id]}
+              onClick={() => cartAdd(shopCard._id)}
             />
             <img src={shopCard.img} className={styles.img} alt="" />
             <div className={styles.details}>

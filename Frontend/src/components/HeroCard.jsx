@@ -13,9 +13,10 @@ const HeroCard = () => {
 
   const getCards = async () => {
     const res = await axios.get("http://localhost:8080/cardHome");
-    console.log(res.data);
     dispatch(cardActions.cardContent({ data: res.data }));
   };
+
+ 
   useEffect(() => {
     getCards();
   }, []);

@@ -6,8 +6,8 @@ const ProductHomeSchema = new Schema({
   img : String,
   title:String,
   category :String,
-  cuttedPrice : String,
-  price: String,
+  cuttedPrice : Number,
+  price: Number,
 });
 
 
