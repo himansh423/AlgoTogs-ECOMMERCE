@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import img from "../assets/backcloth.jpeg";
+
 
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
     cartItem:[],
+    initialCartItem:[],
     styling: {},
   },
   reducers: {
@@ -24,9 +25,18 @@ const cartSlice = createSlice({
       const { data } = action.payload;
       state.cartItem.push(data);
     },
+    alreadyAddCartItem: (state, action) => {
+      const { data } = action.payload;
+      console.log("cart",data)
+      state.initialCartItem = data;
+    },
     deleteCartItem: (state,action) => {
       const {_id} = action.payload;
       state.cartItem = state.cartItem.filter(item => item._id !== _id);
+    },
+    alreadyAddCartItemDelete :(state,action) => {
+      const {_id} = action.payload;
+      state.initialCartItem = state.initialCartItem.filter(item => item._id !== _id);
     }
   },
 });
@@ -34,3 +44,6 @@ const cartSlice = createSlice({
 export const cartAction = cartSlice.actions;
 
 export default cartSlice;
+
+
+

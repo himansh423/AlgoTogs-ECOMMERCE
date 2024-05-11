@@ -9,7 +9,9 @@ import eComStore from "./store/index.js";
 import ShopSection from "./components/ShopSection.jsx";
 import App from "./routes/App.jsx";
 import CartSide from "./components/CartSide.jsx";
-
+import HomeLanding from "./parentComponent/HomeLanding.jsx";
+import EverythingStore from "./parentComponent/EverythingStore.jsx";
+ 
 const router = createBrowserRouter([
   {
     path: "/",
@@ -17,8 +19,12 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: [<BackImage />,<TextOnHero/>,<HeroCard/>,<ShopSection/>,<CartSide/>]
+        element: <HomeLanding/>
       },
+      {
+        path:"/store",
+        element:<EverythingStore/>
+      }
     ],
   },
 ]);

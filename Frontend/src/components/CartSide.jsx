@@ -4,8 +4,9 @@ import { RxCross2 } from "react-icons/rx";
 import { RxCrossCircled } from "react-icons/rx";
 import { cartAction } from "../store/cart";
 import axios from "axios";
+import { useEffect } from "react";
 const CartSide = () => {
-  const { cartItem,styling } = useSelector((store) => store.cart);
+  const { cartItem,styling,initialCartItem } = useSelector((store) => store.cart);
 
   const dispatch = useDispatch();
 
@@ -14,12 +15,20 @@ const CartSide = () => {
   }
   
 
-  
-  const handleDelete = async(id) => {
-    const res = await axios.delete(`http://localhost:8080/cartItem/${id}`);
-    console.log(`deleted ${res.data}`);
-    dispatch(cartAction.deleteCartItem({_id:id}));
+  const alreadyInCart = async () => {
+    const res = await axios.get(`http://localhost:8080/cartItem/`);
+    dispatch(cartAction.alreadyAddCartItem({ data: res.data }));
   }
+
+  useEffect(()=> {
+    alreadyInCart();
+  },[dispatch])
+ const handleDelete = async (id) => {
+  const res = await axios.delete(`http://localhost:8080/cartItem/${id}`);
+  console.log(`deleted ${res.data}`);
+  dispatch(cartAction.deleteCartItem({ _id: id }));
+  dispatch(cartAction.alreadyAddCartItemDelete({ _id: id }));
+}
   
   
   return (
@@ -30,13 +39,25 @@ const CartSide = () => {
           <RxCross2 className={styles.cross}  onClick={handleCross} />
         </div>
         <div className={styles.itemConatiner}>
-          {cartItem && cartItem.map((item) => (
+          {initialCartItem.map((item) => (
             <div key={item._id} className={styles.item}>
               <div className={styles.main}>
                 <img src={item.img} alt="" />
                 <div className={styles.details}>
                   <p>{item.title}</p>
-                  <p>{item.price}</p>
+                  <p>{item.quantity} * {item.price}</p>
+                </div>
+              </div>
+              <RxCrossCircled className={styles.cross2} onClick={() => handleDelete(item._id)} />
+            </div>
+          ))}
+          {cartItem.map((item) => (
+            <div key={item._id} className={styles.item}>
+              <div className={styles.main}>
+                <img src={item.img} alt="" />
+                <div className={styles.details}>
+                  <p>{item.title}</p>
+                  <p>{item.quantity} * {item.price}</p>
                 </div>
               </div>
               <RxCrossCircled className={styles.cross2} onClick={() => handleDelete(item._id)} />

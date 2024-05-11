@@ -5,6 +5,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import { FaUserAlt } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { cartAction } from "../store/cart";
+import { Link } from "react-router-dom";
 const Header = () => {
   const dispatch = useDispatch();
 const handleCartClick = () => {
@@ -18,9 +19,9 @@ const handleCartClick = () => {
           <a href="#" className={styles.brand}>
             <img src={logoImg} />
           </a>
-          <a className={styles.links} href="">
+          <Link className={styles.links} to="/store">
             EVERYTHING
-          </a>
+          </Link>
           <a className={styles.links} href="">
             WOMEN
           </a>

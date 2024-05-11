@@ -6,7 +6,9 @@ const router = express.Router();
 router
 .post('/',cartItemController.postCartItem)
 .get('/',cartItemController.getCartItem)
-.delete('/:id',cartItemController.deleteCartItem);
+.delete('/:id',cartItemController.deleteCartItem)
+.patch('/:id',cartItemController.updateCartItem)
+.get('/:id',cartItemController.getCartItemOne)
 
 
 

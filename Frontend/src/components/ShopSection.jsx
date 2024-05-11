@@ -11,7 +11,6 @@ import { useEffect } from "react";
 import { cartAction } from "../store/cart";
 const ShopSection = () => {
   const { shopCards } = useSelector((store) => store.shopCard);
-  const { cartItem } = useSelector((store) => store.cart);
   const { style } = useSelector((store) => store.shopCard);
   const dispatch = useDispatch();
   const handleOnMouseOver = (id) => {
@@ -26,27 +25,28 @@ const ShopSection = () => {
     console.log(res.data);
     dispatch(shopCardAction.shopCardData({ data: res.data }));
   };
-  const postCartItem = async (data) => {
-    const cartItemWithoutId = {
-      _id:data._id,
-      img: data.img,
-      title: data.title,
-      quantity:123,
-      cuttedPrice: data.cuttedPrice,
-      price: data.price,
-    };
-    const res = await axios.post(
-      "http://localhost:8080/cartItem/",
-      cartItemWithoutId
-    );
-    console.log(res.data);
-  };
+  
   const cartAdd = async (id) => {
-    const res = await axios.get(`http://localhost:8080/producthome/${id}`);
-    dispatch(cartAction.addCartItem({ data: res.data }));
-    postCartItem(res.data);
+    const ExistingItem = await axios.get(`http://localhost:8080/cartItem/${id}`)
+    if(ExistingItem.data){
+      alert("already in cart");
+      return;
+    }
+    
+  const res = await axios.get(`http://localhost:8080/producthome/${id}`);
+  const postData = {
+    _id: res.data._id,
+    img: res.data.img,
+    title: res.data.title,
+    quantity: 1, // Set the initial quantity to 1
+    cuttedPrice: res.data.cuttedPrice,
+    price: res.data.price,
   };
 
+  const response = await axios.post(`http://localhost:8080/cartItem/`, postData);
+  dispatch(cartAction.addCartItem({ data: response.data }));
+  };
+  
   useEffect(() => {
     getProductHome();
   }, []);
