@@ -4,39 +4,60 @@ import { RxCross2 } from "react-icons/rx";
 import { RxCrossCircled } from "react-icons/rx";
 import { cartAction } from "../store/cart";
 import axios from "axios";
-import { useEffect } from "react";
-const CartSide = () => {
-  const { cartItem,styling,initialCartItem } = useSelector((store) => store.cart);
+import { useRef, useEffect } from "react";
 
+const CartSide = () => {
+  const { cartItem, initialCartItem, styling, total } = useSelector((store) => store.cart);
+  const selectInputRef = useRef();
   const dispatch = useDispatch();
 
   const handleCross = () => {
     dispatch(cartAction.crossClick());
-  }
-  
+  };
 
   const alreadyInCart = async () => {
-    const res = await axios.get(`http://localhost:8080/cartItem/`);
-    dispatch(cartAction.alreadyAddCartItem({ data: res.data }));
-  }
+    try {
+      const res = await axios.get(`http://localhost:8080/cartItem/`);
+      dispatch(cartAction.alreadyAddCartItem({ data: res.data }));
+    } catch (error) {
+      console.error("Error fetching cart items:", error);
+    }
+  };
 
-  useEffect(()=> {
+  useEffect(() => {
     alreadyInCart();
-  },[dispatch])
- const handleDelete = async (id) => {
-  const res = await axios.delete(`http://localhost:8080/cartItem/${id}`);
-  console.log(`deleted ${res.data}`);
-  dispatch(cartAction.deleteCartItem({ _id: id }));
-  dispatch(cartAction.alreadyAddCartItemDelete({ _id: id }));
-}
-  
-  
+  }, [dispatch]);
+
+  const handleDelete = async (id) => {
+    try {
+      const res = await axios.delete(`http://localhost:8080/cartItem/${id}`);
+      console.log(`deleted ${res.data}`);
+      dispatch(cartAction.deleteCartItem({ _id: id }));
+    } catch (error) {
+      console.error("Error deleting item from cart:", error);
+    }
+  };
+
+  const handleQuantityUpdate = async (id, event) => {
+    const qty = event.target.value;
+    try {
+      const res = await axios.patch(`http://localhost:8080/cartItem/${id}`, {
+        quantity: qty,
+      });
+      console.log(res.data);
+
+      dispatch(cartAction.updateCartItemQuantity({ _id: id, quantity: qty }));
+    } catch (error) {
+      console.error("Error updating quantity:", error);
+    }
+  };
+
   return (
     <>
       <div className={styles.container} style={styling}>
         <div className={styles.cartHead}>
           <h5 className={styles.h}>Shopping Cart</h5>
-          <RxCross2 className={styles.cross}  onClick={handleCross} />
+          <RxCross2 className={styles.cross} onClick={handleCross} />
         </div>
         <div className={styles.itemConatiner}>
           {initialCartItem.map((item) => (
@@ -45,7 +66,24 @@ const CartSide = () => {
                 <img src={item.img} alt="" />
                 <div className={styles.details}>
                   <p>{item.title}</p>
-                  <p>{item.quantity} * {item.price}</p>
+                  <p>
+                    <span className={styles.span}>QTY</span>
+                    <select
+                      ref={selectInputRef}
+                      className={styles.dropdown}
+                      onChange={(event) => handleQuantityUpdate(item._id, event)}
+                      value={item.quantity}
+                      name="QTY"
+                      id="QTY"
+                    >
+                      {[...Array(10).keys()].map((index) => (
+                        <option key={index + 1} value={index + 1}>
+                          {index + 1}
+                        </option>
+                      ))}
+                    </select>{" "}
+                    <RxCross2 /> {item.price}
+                  </p>
                 </div>
               </div>
               <RxCrossCircled className={styles.cross2} onClick={() => handleDelete(item._id)} />
@@ -57,7 +95,24 @@ const CartSide = () => {
                 <img src={item.img} alt="" />
                 <div className={styles.details}>
                   <p>{item.title}</p>
-                  <p>{item.quantity} * {item.price}</p>
+                  <p>
+                    <span className={styles.span}>QTY</span>
+                    <select
+                      ref={selectInputRef}
+                      className={styles.dropdown}
+                      onChange={(event) => handleQuantityUpdate(item._id, event)}
+                      value={item.quantity}
+                      name="QTY"
+                      id="QTY"
+                    >
+                      {[...Array(10).keys()].map((index) => (
+                        <option key={index + 1} value={index + 1}>
+                          {index + 1}
+                        </option>
+                      ))}
+                    </select>{" "}
+                    <RxCross2 /> {item.price}
+                  </p>
                 </div>
               </div>
               <RxCrossCircled className={styles.cross2} onClick={() => handleDelete(item._id)} />
@@ -66,7 +121,7 @@ const CartSide = () => {
         </div>
         <div className={styles.totalConatiner}>
           <p>Subtotal:</p>
-          <p>340rs</p>
+          <p>{total}</p>
         </div>
         <div className={styles.buttons}>
           <a href="">VIEW CART</a>

@@ -107,6 +107,12 @@ margin: 10px;
 .buttons a:hover {
   background-color: #005b94;
 }
+.span {
+  margin-right: 5px;
+}
+.dropdown {
+  border-radius: 7px;
+}
 
 
 
