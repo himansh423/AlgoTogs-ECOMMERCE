@@ -22,15 +22,15 @@ const handleCartClick = () => {
           <Link className={styles.links} to="/store">
             EVERYTHING
           </Link>
-          <a className={styles.links} href="">
+          <Link className={styles.links} to="/women" >
             WOMEN
-          </a>
-          <a className={styles.links} href="">
+          </Link>
+          <Link className={styles.links} to="/men">
             MEN
-          </a>
-          <a className={styles.links} href="">
+          </Link>
+          <Link className={styles.links} to="/accessories">
             ACCESSORIES
-          </a>
+          </Link>
         </div>
 
         <div className={styles.optContainerChild2}>

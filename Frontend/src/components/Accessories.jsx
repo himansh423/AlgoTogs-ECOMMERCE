@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
-import styles from "./Everything.module.css";
+import styles from "./Accessories.module.css";
 import { GrNext } from "react-icons/gr";
 import { MdAddShoppingCart } from "react-icons/md";
 import { useEffect } from "react";
 import axios from "axios";
 import { shopCardAction } from "../store/shopCard";
 import { FaArrowRightLong } from "react-icons/fa6";
-const Everything = () => {
+const Accessories = () => {
   const { shopCards, style } = useSelector((store) => store.shopCard);
   const { product } = useSelector((store) => store.sellerEverything);
   const dispatch = useDispatch();
@@ -92,7 +92,8 @@ const Everything = () => {
         <div className={styles.shopContainer}>
           <div className={styles.shopContainerNav}>
             <div className={styles.ChildContainerOfNav}>
-              <p className={styles.slashHome}>Home/Products</p>
+              <p className={styles.slashMen}>Home/Men</p>
+              <p className={styles.AccessoriesNav}>Accessories</p>
               <p className={styles.showing}>
                 Showing <span>1</span>-<span>12</span> of 31 Results
               </p>
@@ -152,4 +153,4 @@ const Everything = () => {
   );
 };
 
-export default Everything;
+export default Accessories;

@@ -1,5 +1,5 @@
 .parentConatiner {
-  height: 2600px;
+  height: 2800px;
   background-color:#f5f7f9 ;
   padding: 180px 70px;
 }
@@ -17,7 +17,7 @@
   
 }
 .shopContainer {
-  height: 2300px;
+  height: 2500px;
   width: 1000px;
   background-color: #ffffff;
 }
@@ -136,7 +136,7 @@ input[type="range"].range2::-moz-range-thumb {
   font-size: 1.2rem;
 }
 .shopContainerNav {
-  height:180px;
+  height:300px;
   width:100%;
   display: flex;
   background-color: #ffffff;
@@ -145,16 +145,17 @@ input[type="range"].range2::-moz-range-thumb {
   padding: 0px 100px 20px 100px;
 }
 .ChildContainerOfNav {
-  height:80px;
+  height:190px;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
 }
 
-.slashHome {
+.slashMen {
   color:grey;
   margin: 0px;
 }
+
 .showing {
   margin: 0px;
   color: black;
@@ -273,4 +274,10 @@ del {
 }
 .ProductContainer p {
   margin: 3px;
+}
+.AccessoriesNav {
+  font-size: 4rem;
+  color: black;
+  font-family:sans-serif ;
+  font-weight: 500
 }

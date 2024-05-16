@@ -11,6 +11,9 @@ import App from "./routes/App.jsx";
 import CartSide from "./components/CartSide.jsx";
 import HomeLanding from "./parentComponent/HomeLanding.jsx";
 import EverythingStore from "./parentComponent/EverythingStore.jsx";
+import MenStore from "./parentComponent/MenStore.jsx";
+import WomenStore from "./parentComponent/WomenStore.jsx";
+import AccessoriesStore from "./parentComponent/AccessoriesStore.jsx";
  
 const router = createBrowserRouter([
   {
@@ -24,6 +27,18 @@ const router = createBrowserRouter([
       {
         path:"/store",
         element:<EverythingStore/>
+      },
+      {
+        path:"/men",
+        element:<MenStore/>
+      },
+      {
+        path:"/women",
+        element:<WomenStore/>
+      },
+      {
+        path:"/accessories",
+        element:<AccessoriesStore/>
       }
     ],
   },
