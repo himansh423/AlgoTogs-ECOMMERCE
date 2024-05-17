@@ -1,0 +1,78 @@
+
+* {
+ margin: 0px;
+ padding: 0px;
+ box-sizing: border-box;
+}
+.queryContainer {
+  height:60vh;
+  width:100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 0px;
+}
+.headText {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding:30px 0px;
+}
+.QueryText1 {
+  font-size: 1.2rem;
+  font-family: sans-serif;
+  font-weight: 600;
+  margin: 0px;
+  height:18px;
+}
+.QueryText2 {
+  font-size: 2.5rem;
+  font-family: sans-serif;
+  font-weight: 700;
+  margin: 0px;
+  color:black
+}
+.cardContainer {
+  display: flex;
+  width:100vw;
+  height:200px ;
+  margin-top: 20px;
+  justify-content: space-evenly;
+}
+.card {
+  height:180px;
+  width:280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 10px;
+  border-radius: 9px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s; 
+}
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);  
+}
+.head {
+  font-size: 1.7rem;
+  font-family: sans-serif;
+  font-weight: 700;
+  margin: 0px;
+  color:black
+}
+.cardText {
+  text-align: center;
+  font-size: 1rem;
+  font-family: sans-serif;
+  font-weight: 100;
+  margin: 7px;
+}
+.info {
+  text-decoration: none;
+  font-family: sans-serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+}

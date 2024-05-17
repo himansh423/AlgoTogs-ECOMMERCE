@@ -1,0 +1,21 @@
+.cover {
+  background-image: url("../assets/backcloth.jpeg");
+  background-size: cover;
+  background-attachment: fixed;
+  height: 55vh;
+  width: 100vw;
+  filter: brightness(0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.contact {
+  position: absolute;
+  left: 50%;
+  top:25%;
+  transform: translateX(-50%);
+  font-size: 4rem;
+  color:white;
+  font-family: sans-serif;
+  font-weight: 500;
+}
