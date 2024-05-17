@@ -113,6 +113,11 @@ margin: 10px;
 .dropdown {
   border-radius: 7px;
 }
-
+.rupeeSymbol {
+  margin: 0px;
+  font-size: 19px;
+  padding: 0px;
+  padding-bottom: 2px;  
+} 
 
 

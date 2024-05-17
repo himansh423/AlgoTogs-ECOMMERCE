@@ -7,7 +7,7 @@ import TextOnHero from "../components/TextOnHero";
 const HomeLanding = () => {
   return (
     <>
-      <BackImage />
+      <BackImage   />
       <TextOnHero />
       <HeroCard />
       <ShopSection />

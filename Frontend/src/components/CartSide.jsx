@@ -4,7 +4,9 @@ import { RxCross2 } from "react-icons/rx";
 import { RxCrossCircled } from "react-icons/rx";
 import { cartAction } from "../store/cart";
 import axios from "axios";
+import { BiRupee } from "react-icons/bi";
 import { useRef, useEffect } from "react";
+import { loaderAction } from "../store/loader";
 
 const CartSide = () => {
   const { cartItem, initialCartItem, styling, total } = useSelector((store) => store.cart);
@@ -18,6 +20,7 @@ const CartSide = () => {
   const alreadyInCart = async () => {
     try {
       const res = await axios.get(`http://localhost:8080/cartItem/`);
+      dispatch(loaderAction.cartside());
       dispatch(cartAction.alreadyAddCartItem({ data: res.data }));
     } catch (error) {
       console.error("Error fetching cart items:", error);
@@ -82,7 +85,7 @@ const CartSide = () => {
                         </option>
                       ))}
                     </select>{" "}
-                    <RxCross2 /> {item.price}
+                    <RxCross2 /><BiRupee className={styles.rupeeSymbol}/>{item.price}
                   </p>
                 </div>
               </div>
@@ -111,7 +114,7 @@ const CartSide = () => {
                         </option>
                       ))}
                     </select>{" "}
-                    <RxCross2 /> {item.price}
+                    <RxCross2 /><BiRupee className={styles.rupeeSymbol}/>{item.price}
                   </p>
                 </div>
               </div>
@@ -120,8 +123,8 @@ const CartSide = () => {
           ))}
         </div>
         <div className={styles.totalConatiner}>
-          <p>Subtotal:</p>
-          <p>{total}</p>
+          <h6>Subtotal:</h6>
+          <p><BiRupee className={styles.rupeeSymbol}/>{total}</p>
         </div>
         <div className={styles.buttons}>
           <a href="">VIEW CART</a>

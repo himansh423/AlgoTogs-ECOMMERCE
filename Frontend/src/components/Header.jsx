@@ -37,9 +37,9 @@ const handleCartClick = () => {
           <a className={styles.links} href="">
             About
           </a>
-          <a className={styles.links} href="">
+          <Link className={styles.links} to="/contact">
             Contact Us
-          </a>
+          </Link>
           <a className={styles.links}>
             <FaShoppingCart onClick={handleCartClick}/>
           </a>

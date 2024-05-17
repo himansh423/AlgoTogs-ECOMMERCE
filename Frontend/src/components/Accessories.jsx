@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { shopCardAction } from "../store/shopCard";
 import { FaArrowRightLong } from "react-icons/fa6";
+import { loaderAction } from "../store/loader";
 const Accessories = () => {
   const { shopCards, style } = useSelector((store) => store.shopCard);
   const { product } = useSelector((store) => store.sellerEverything);
@@ -13,6 +14,7 @@ const Accessories = () => {
   const getProductHome = async () => {
     const res = await axios.get("http://localhost:8080/producthome");
     console.log(res.data);
+    dispatch(loaderAction.sories());
     dispatch(shopCardAction.shopCardData({ data: res.data }));
   };
   useEffect(() => {

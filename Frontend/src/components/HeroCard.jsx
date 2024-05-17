@@ -7,12 +7,14 @@ import {cardAction} from "../store/cardAction"
 import axios from "axios";
 import { useEffect } from "react";
 import { cardActions } from "../store/cards";
+import { loaderAction } from "../store/loader";
 const HeroCard = () => {
   const { cardObj } = useSelector((store) => store.cards);
   const { styling } = useSelector((store) => store.cardAction);
 
   const getCards = async () => {
     const res = await axios.get("http://localhost:8080/cardHome");
+    dispatch(loaderAction.heroC());
     dispatch(cardActions.cardContent({ data: res.data }));
   };
 

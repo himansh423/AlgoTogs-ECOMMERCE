@@ -9,6 +9,7 @@ import { GrSecure } from "react-icons/gr";
 import axios from "axios";
 import { useEffect } from "react";
 import { cartAction } from "../store/cart";
+import { loaderAction } from "../store/loader";
 const ShopSection = () => {
   const { shopCards } = useSelector((store) => store.shopCard);
   const { style } = useSelector((store) => store.shopCard);
@@ -23,6 +24,7 @@ const ShopSection = () => {
   const getProductHome = async () => {
     const res = await axios.get("http://localhost:8080/producthome");
     console.log(res.data);
+    dispatch(loaderAction.shopSec());
     dispatch(shopCardAction.shopCardData({ data: res.data }));
   };
 

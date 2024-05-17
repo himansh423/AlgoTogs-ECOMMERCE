@@ -6,6 +6,7 @@ import subscribeToggleSlice from './subscribeToggle';
 import landingPageSlice from "./landingPage";
 import cartSlice from "./cart";
 import sellerEverythingSlice from "./sellerEverything";
+import loaderSlice from "./loader";
 
 const eComStore = configureStore({
   reducer : {
@@ -16,6 +17,7 @@ const eComStore = configureStore({
     landingPage:landingPageSlice.reducer,
     cart:cartSlice.reducer,
     sellerEverything:sellerEverythingSlice.reducer,
+    loader:loaderSlice.reducer,
   } 
 })
 
