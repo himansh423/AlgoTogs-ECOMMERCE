@@ -12,13 +12,13 @@ const sellerEverythingSlice = createSlice({
     {
       img:img,
       title:"random Product",
-      id:1,
+      id:2,
       price:"2000",
     },
     {
       img:img,
       title:"random Product",
-      id:1,
+      id:3,
       price:"2000",
     }]
   }

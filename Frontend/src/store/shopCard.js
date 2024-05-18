@@ -3,7 +3,7 @@ import img1 from "../assets/backcloth.jpeg";
 const shopCardSlice = createSlice({
   name: "shopCards",
   initialState: {
-    shopCards: [],
+    shopCards: [], 
     style: {
       visibility: "hidden",
       transition: "visibility 0.9s ease",

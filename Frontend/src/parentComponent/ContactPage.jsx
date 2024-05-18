@@ -1,3 +1,4 @@
+import ContactForm from "../components/ContactForm";
 import ImgContact from "../components/ImgContact";
 import QuerySection from "../components/QuerySection";
 
@@ -6,6 +7,7 @@ const ContactPage = () => {
     <>
     <ImgContact/>
     <QuerySection/>
+    <ContactForm/>
     </>
   )
 }

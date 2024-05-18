@@ -4,6 +4,7 @@ import { GrNext } from "react-icons/gr";
 import { MdAddShoppingCart } from "react-icons/md";
 import { useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { shopCardAction } from "../store/shopCard";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { loaderAction } from "../store/loader";
@@ -63,13 +64,13 @@ const Men = () => {
             <div className={styles.category}>
               <h3>Categories</h3>
               <p>
-                <a>Men</a> <span>(20)</span>
+                <Link  className={styles.link} to="/men">Men <span>(20)</span></Link>
               </p>
               <p>
-                <a>Women</a> <span>(20)</span>
+                <Link className={styles.link} to="/women">Women <span>(20)</span></Link> 
               </p>
               <p>
-                <a>Accessories</a> <span>(20)</span>
+                <Link className={styles.link} to="/accessories">Accessories <span>(20)</span></Link> 
               </p>
             </div>
             <div className={styles.sellerContainer}>

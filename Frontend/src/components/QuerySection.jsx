@@ -42,8 +42,7 @@ const QuerySection = () => {
               Vestibulum ante ipsum primis in faucibus orci luctus.
             </p>
             <a className={styles.info} href="">
-            1700 444 5578
-
+              1700 444 5578
             </a>
           </div>
         </div>

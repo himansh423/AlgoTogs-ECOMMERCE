@@ -7,6 +7,8 @@ import landingPageSlice from "./landingPage";
 import cartSlice from "./cart";
 import sellerEverythingSlice from "./sellerEverything";
 import loaderSlice from "./loader";
+import productEverthingSlice from "./productEverything";
+import filterEverythingSlice from "./filterEverything";
 
 const eComStore = configureStore({
   reducer : {
@@ -18,6 +20,8 @@ const eComStore = configureStore({
     cart:cartSlice.reducer,
     sellerEverything:sellerEverythingSlice.reducer,
     loader:loaderSlice.reducer,
+    productEveryThing:productEverthingSlice.reducer,
+    filterEverything:filterEverythingSlice.reducer,
   } 
 })
 
