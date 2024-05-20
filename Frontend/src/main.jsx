@@ -10,6 +10,7 @@ import MenStore from "./parentComponent/MenStore.jsx";
 import WomenStore from "./parentComponent/WomenStore.jsx";
 import AccessoriesStore from "./parentComponent/AccessoriesStore.jsx";
 import ContactPage from "./parentComponent/ContactPage.jsx";
+import CartPage from "./parentComponent/CartPage.jsx";
 
  
 const router = createBrowserRouter([
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path:"/contact",
         element:<ContactPage/>
+      },
+      {
+        path:"/cart",
+        element:<CartPage/>
       }
     ],
   },

@@ -7,6 +7,7 @@ import axios from "axios";
 import { BiRupee } from "react-icons/bi";
 import { useRef, useEffect } from "react";
 import { loaderAction } from "../store/loader";
+import { Link } from "react-router-dom";
 
 const CartSide = () => {
   const { cartItem, initialCartItem, styling, total } = useSelector((store) => store.cart);
@@ -127,7 +128,7 @@ const CartSide = () => {
           <p><BiRupee className={styles.rupeeSymbol}/>{total}</p>
         </div>
         <div className={styles.buttons}>
-          <a href="">VIEW CART</a>
+          <Link to="/cart">VIEW CART</Link>
           <a href="">CHECKOUT</a>
         </div>
       </div>

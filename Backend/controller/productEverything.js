@@ -4,7 +4,7 @@ const productEverything = model.productEverything;
 
 exports.getProductEverything = async (req, res) => {
   let query = productEverything.find();
-  let pageSize = 12; // Change the page size to 12
+  let pageSize = 12; 
   let page = req.query.page || 1; 
 
   if (req.query.sort) {

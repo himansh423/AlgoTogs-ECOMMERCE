@@ -40,7 +40,7 @@ const Everything = () => {
     );
     console.log(res.data);
     dispatch(productEverthingAction.everythingData({ data: res.data }));
-  };
+  }; 
   const cartAdd = async (id) => {
     const ExistingItem = await axios.get(
       `http://localhost:8080/cartItem/${id}`

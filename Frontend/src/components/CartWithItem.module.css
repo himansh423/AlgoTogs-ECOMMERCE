@@ -1,0 +1,52 @@
+.headContainer {
+  height: 300px;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+.headContainer h1 {
+  margin-top: 90px;
+  width: 80vw;
+  height: 130px;
+  font-size: 4rem;
+  text-align: center;
+  color: gray;
+}
+.cartContainer {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.header {
+  height: 50px;
+  width: 1200px;
+  border: 1px solid #dddddd;
+  display: flex;
+  align-items: center;
+}
+.product {
+  width: 300px;
+  text-align: end;
+  margin: 0%;
+  font-size: 1.2rem;
+  font-family: sans-serif;
+  font-weight: 600;
+}
+.Quantity {
+  width: 500px;
+  text-align: end;
+  margin: 0%;
+  font-size: 1.2rem;
+  font-family: sans-serif;
+  font-weight: 600;
+}
+.subtotal {
+  width: 300px;
+  text-align: end;
+  margin: 0%;
+  font-size: 1.2rem;
+  font-family: sans-serif;
+  font-weight: 600;
+}

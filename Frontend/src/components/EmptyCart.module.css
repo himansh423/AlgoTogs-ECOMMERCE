@@ -1,0 +1,47 @@
+
+.headContainer {
+  height:300px;
+  width:100vw;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+.headContainer h1 {
+  margin-top: 90px;
+  width:80vw;
+  height:130px;
+  font-size: 4rem;
+  text-align: center;
+  color: gray;
+  border-bottom: 3px solid black;
+}
+.empty {
+  display: flex;
+margin-top: 10px;
+  gap:5px;
+  height: 400px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.empty .cartIcon{
+ padding-top: 5px;
+ margin: 0%;
+ font-size: 25px;
+}
+.empty p{
+font-size: 20px;
+  margin: 0%;
+ }
+.ReturnButton{
+  height:45px;
+  width:150px;
+  text-align: center;
+  padding: 11px;
+  background-color: rgb(3, 111, 243);
+  text-decoration: none;
+  color: white;
+  font-family: sans-serif;
+  font-weight: 600;
+  margin-top: 22px;
+}
