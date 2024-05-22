@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { IoGlobeOutline } from "react-icons/io5";
 import { GiClothes } from "react-icons/gi";
 import { BiSolidOffer } from "react-icons/bi";
+import { Link } from "react-router-dom";
 import { GrSecure } from "react-icons/gr";
 import axios from "axios";
 import { useEffect } from "react";
@@ -62,7 +63,8 @@ const ShopSection = () => {
       <div className={styles.container}>
         <h1 className={styles.h1}>Featured Products</h1>
         {shopCards.map((shopCard) => (
-          <div
+          <Link
+          to="/product"
             key={shopCard._id}
             className={styles.shopCard}
             onMouseOver={() => handleOnMouseOver(shopCard._id)}
@@ -89,7 +91,7 @@ const ShopSection = () => {
                 <span className="fa fa-star"></span>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
       <div className={styles.container2}>

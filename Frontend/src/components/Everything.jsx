@@ -14,13 +14,15 @@ const Everything = () => {
   const dropdownRef = useRef(null);
   const { product } = useSelector((store) => store.sellerEverything);
   const { min, max } = useSelector((store) => store.filterEverything);
-  const { ProductEvery, style, resultInitial, resultEnd } = useSelector(
+  const { ProductEvery, style, resultInitial,totalResult, resultEnd } = useSelector(
     (store) => store.productEveryThing
   );
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [isFilterActive, setIsFilterActive] = useState(false);
+  const [sortOption, setSortOption] = useState('');
+
   const [display, setDisplay] = useState({
     display: "none",
   });
@@ -35,9 +37,21 @@ const Everything = () => {
     dispatch(productEverthingAction.stylingLeave({ cardId: id }));
   };
 
-  const getProductEverything = async () => {
+  const ResultsEvery = async () => {
     const res = await axios.get(
-      `http://localhost:8080/everything?page=${currentPage}`
+      `http://localhost:8080/everything`
+    );
+    const {totalCount} = res.data;
+    dispatch(productEverthingAction.totalResult({total:totalCount}));
+  }
+
+  const getProductEverything = async () => {
+    const queryParams = new URLSearchParams({
+      page: currentPage.toString(),
+      sort: sortOption,
+    });
+    const res = await axios.get(
+      `http://localhost:8080/everything?${queryParams.toString()}`
     );
     const { products, totalCount } = res.data;
     const calculatedTotalPages = Math.ceil(totalCount / 12);
@@ -46,11 +60,18 @@ const Everything = () => {
   };
 
   const getFilteredProducts = async () => {
+    const queryParams = new URLSearchParams({
+      page: currentPage.toString(),
+      min: min.toString(),
+      max: max.toString(),
+      sort: sortOption,
+    });
+
     const res = await axios.get(
-      `http://localhost:8080/everything/filteredProducts?page=${currentPage}&min=${min}&max=${max}`
+      `http://localhost:8080/everything/filteredProducts?${queryParams.toString()}`
     );
     const { products, totalCount } = res.data;
-    const calculatedTotalPages = Math.ceil((totalCount + 1) / 12);
+    const calculatedTotalPages = Math.ceil((totalCount+1) / 12);
     setTotalPages(calculatedTotalPages);
     dispatch(productEverthingAction.everythingData({ data: products }));
   };
@@ -86,40 +107,14 @@ const Everything = () => {
       getFilteredProducts();
     } else {
       getProductEverything();
+      ResultsEvery();
     }
-  }, [currentPage, isFilterActive]);
+  }, [currentPage, isFilterActive, sortOption,totalPages]);
 
-  const handleSort = async (event) => {
-    // Get the selected sort option value
-    const sortOption = event.target.value;
-
-    // Construct the query parameters based on the selected sort option
-    const queryParams = new URLSearchParams({
-      page: currentPage.toString(),
-      sort: sortOption,
-    });
-
-    // If filtering is active, include the min and max price in the query params
-    if (isFilterActive) {
-      queryParams.append("min", min.toString());
-      queryParams.append("max", max.toString());
-    }
-
-    // Construct the complete API URL with query parameters
-    const apiUrl = isFilterActive
-      ? `http://localhost:8080/everything/filteredProducts?${queryParams.toString()}`
-      : `http://localhost:8080/everything?${queryParams.toString()}`;
-
-    try {
-      // Make the API call with the constructed URL
-      const res = await axios.get(apiUrl);
-      const { products, totalCount } = res.data;
-      const calculatedTotalPages = Math.ceil(totalCount / 12);
-      setTotalPages(calculatedTotalPages);
-      dispatch(productEverthingAction.everythingData({ data: products }));
-    } catch (error) {
-      console.error("Error fetching sorted products:", error);
-    }
+  const handleSort = (event) => {
+    const selectedSortOption = event.target.value;
+    setSortOption(selectedSortOption);
+    setCurrentPage(1); // Reset currentPage to 1 when sorting
   };
 
   const handleMinRangeChange = () => {
@@ -145,48 +140,25 @@ const Everything = () => {
     setCurrentPage(page);
     dispatch(productEverthingAction.resultChange({ page: page }));
   };
+
   const handleFilterRemove = () => {
     setDisplay({
       display: "none",
     });
     setCurrentPage(1);
     setIsFilterActive(false);
+    setSortOption("");
     MinRangeInput.current.value = 20;
     MaxRangeInput.current.value = 0;
     dispatch(filterEverythingActions.minFilter({ minRange: 20 }));
     dispatch(filterEverythingActions.maxFilter({ maxRange: 240 }));
+
     getProductEverything();
-
-    // Reset the sorting to default
-    const sortOption = "";
-
-    // Construct the query parameters with the default sort option
-    const queryParams = new URLSearchParams({
-      page: "1", // Reset to the first page
-      sort: sortOption,
-    });
-
-    // Construct the API URL with the default sort option
-    const apiUrl = `http://localhost:8080/everything?${queryParams.toString()}`;
-
-    // Make the API call with the default sort option
-    axios
-      .get(apiUrl)
-      .then((res) => {
-        const { products, totalCount } = res.data;
-        const calculatedTotalPages = Math.ceil(totalCount / 12);
-        setTotalPages(calculatedTotalPages);
-        dispatch(productEverthingAction.everythingData({ data: products }));
-
-        // Reset the dropdown value
-        if (dropdownRef.current) {
-          dropdownRef.current.value = "";
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching products with default sorting:", error);
-      });
+    if (dropdownRef.current) {
+      dropdownRef.current.value = "";
+    }
   };
+
   const handleFilter = () => {
     setCurrentPage(1);
     setIsFilterActive(true);
@@ -305,7 +277,7 @@ const Everything = () => {
               <p className={styles.slashHome}>Home/Products</p>
               <p className={styles.showing}>
                 Showing <span>{resultInitial ? resultInitial : 1}</span>-
-                <span>{resultEnd ? resultEnd : 12}</span> of 31 Results
+                <span>{resultEnd ? resultEnd : 12}</span> of {totalResult} Results
               </p>
             </div>
             <select
@@ -374,7 +346,7 @@ const Everything = () => {
                     </button>
                   );
                 })
-              : [...Array(totalPages)].map((_, index) => {
+              : [1,2,3,4].map((_, index) => {
                   const pageNumber = index + 1;
                   return (
                     <button

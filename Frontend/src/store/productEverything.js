@@ -10,6 +10,7 @@ const productEverthingSlice = createSlice({
       transition: "visibility 0.9s ease",
       resultInitial:1,
       resultEnd:12,
+      totalResult:0,
     },
   },
   reducers: {
@@ -35,6 +36,10 @@ const productEverthingSlice = createSlice({
     everythingData: (state,action) => {
       const {data} = action.payload;
       state.ProductEvery = data;
+    },
+    totalResult: (state,action) => {
+        const {total} = action.payload;
+        state.totalResult = total;
     },
     resultChange: (state,action) => {
       const {page} = action.payload;

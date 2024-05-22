@@ -7,9 +7,7 @@ exports.getProductEverything = async (req, res) => {
   let pageSize = 12;
   let page = req.query.page || 1;
 
-  // Check if the sort query parameter is provided
   if (req.query.sort) {
-    // If sort parameter is present, sort the products based on the provided field and order
     const sortField =
       req.query.sort === "PriceLH"
         ? "price"
@@ -49,12 +47,9 @@ exports.getFilteredProducts = async (req, res) => {
   const minPrice = req.query.min ? Number(req.query.min) : 0;
   const maxPrice = req.query.max ? Number(req.query.max) : 240;
 
-  // Filter products based on the provided min and max price
   query = query.where("price").gte(minPrice).lte(maxPrice);
 
-  // Check if the sort query parameter is provided
   if (req.query.sort) {
-    // If sort parameter is present, sort the products based on the provided field and order
     const sortField =
       req.query.sort === "PriceLH"
         ? "price"

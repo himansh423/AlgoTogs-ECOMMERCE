@@ -11,6 +11,7 @@ import WomenStore from "./parentComponent/WomenStore.jsx";
 import AccessoriesStore from "./parentComponent/AccessoriesStore.jsx";
 import ContactPage from "./parentComponent/ContactPage.jsx";
 import CartPage from "./parentComponent/CartPage.jsx";
+import ProductPage from "./parentComponent/ProductPage.jsx";
 
  
 const router = createBrowserRouter([
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
       {
         path:"/cart",
         element:<CartPage/>
+      },
+      {
+        path:"/product",
+        element:<ProductPage/>
       }
     ],
   },
