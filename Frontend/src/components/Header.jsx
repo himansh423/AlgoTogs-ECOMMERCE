@@ -17,7 +17,7 @@ const handleCartClick = () => {
       <div className={styles.optContainer}>
         <div className={styles.optContainerChild1}>
           <a href="#" className={styles.brand}>
-            <img src={logoImg} />
+            <img src={logoImg} className={styles.imglogo}/>
           </a>
           <Link className={styles.links} to="/store">
             EVERYTHING

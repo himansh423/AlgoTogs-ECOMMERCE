@@ -1,25 +1,44 @@
-const mongoose = require('mongoose');
-const model = require('../model/productEverything');
+const mongoose = require("mongoose");
+const model = require("../model/productEverything");
 const productEverything = model.productEverything;
 
 exports.getProductEverything = async (req, res) => {
   let query = productEverything.find();
-  let pageSize = 12; 
-  let page = req.query.page || 1; 
+  let pageSize = 12;
+  let page = req.query.page || 1;
 
+  // Check if the sort query parameter is provided
   if (req.query.sort) {
-    const products = await query
-      .sort({ [req.query.sort]: req.query.order })
-      .skip(pageSize * (page - 1))
-      .limit(pageSize)
-      .exec();
-    res.json(products);
+    // If sort parameter is present, sort the products based on the provided field and order
+    const sortField =
+      req.query.sort === "PriceLH"
+        ? "price"
+        : req.query.sort === "PriceHL"
+        ? "-price"
+        : null;
+    if (sortField) {
+      const totalCount = await productEverything.countDocuments().exec();
+      const products = await query
+        .sort(sortField)
+        .skip(pageSize * (page - 1))
+        .limit(pageSize)
+        .exec();
+      res.json({ products, totalCount });
+    } else {
+      const totalCount = await productEverything.countDocuments().exec();
+      const products = await query
+        .skip(pageSize * (page - 1))
+        .limit(pageSize)
+        .exec();
+      res.json({ products, totalCount });
+    }
   } else {
+    const totalCount = await productEverything.countDocuments().exec();
     const products = await query
       .skip(pageSize * (page - 1))
       .limit(pageSize)
       .exec();
-    res.json(products);
+    res.json({ products, totalCount });
   }
 };
 
@@ -27,26 +46,44 @@ exports.getFilteredProducts = async (req, res) => {
   let query = productEverything.find();
   let pageSize = 12;
   let page = req.query.page || 1;
-
   const minPrice = req.query.min ? Number(req.query.min) : 0;
   const maxPrice = req.query.max ? Number(req.query.max) : 240;
 
+  // Filter products based on the provided min and max price
+  query = query.where("price").gte(minPrice).lte(maxPrice);
 
-  query = query.where('price').gte(minPrice).lte(maxPrice);
-
+  // Check if the sort query parameter is provided
   if (req.query.sort) {
-    const products = await query
-      .sort({ [req.query.sort]: req.query.order })
-      .skip(pageSize * (page - 1))
-      .limit(pageSize)
-      .exec();
-    res.json(products);
+    // If sort parameter is present, sort the products based on the provided field and order
+    const sortField =
+      req.query.sort === "PriceLH"
+        ? "price"
+        : req.query.sort === "PriceHL"
+        ? "-price"
+        : null;
+    if (sortField) {
+      const products = await query
+        .sort(sortField)
+        .skip(pageSize * (page - 1))
+        .limit(pageSize)
+        .exec();
+      const totalCount = products.length;
+      res.json({ products, totalCount });
+    } else {
+      const products = await query
+        .skip(pageSize * (page - 1))
+        .limit(pageSize)
+        .exec();
+      const totalCount = products.length;
+      res.json({ products, totalCount });
+    }
   } else {
     const products = await query
       .skip(pageSize * (page - 1))
       .limit(pageSize)
       .exec();
-    res.json(products);
+    const totalCount = products.length;
+    res.json({ products, totalCount });
   }
 };
 
