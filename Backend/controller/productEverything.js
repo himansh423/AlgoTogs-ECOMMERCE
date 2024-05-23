@@ -6,8 +6,21 @@ exports.getProductEverything = async (req, res) => {
   let query = productEverything.find();
   let pageSize = 12;
   let page = req.query.page || 1;
-
-  if (req.query.sort) {
+  const input = req.query.products;
+  if(req.query.products){
+    try {
+      const products = await productEverything.find({ title: { $regex: `^${input}`, $options: 'i' } }).exec();
+      const totalCount = products.length;
+  
+      res.json({ products, totalCount });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  
+  }
+ 
+  else if (req.query.sort) {
     const sortField =
       req.query.sort === "PriceLH"
         ? "price"
@@ -39,6 +52,8 @@ exports.getProductEverything = async (req, res) => {
     res.json({ products, totalCount });
   }
 };
+
+
 
 exports.getFilteredProducts = async (req, res) => {
   let query = productEverything.find();
@@ -97,3 +112,19 @@ exports.postProductEverything = async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 };
+
+
+exports.getProductEverythingStartWith = async (req,res) => {
+  const input = req.query.product;
+
+  try {
+    const products = await productEverything.find({ title: { $regex: `^${input}`, $options: 'i' } }).exec();
+    const totalCount = products.length;
+
+    res.json({ products, totalCount });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+
+}

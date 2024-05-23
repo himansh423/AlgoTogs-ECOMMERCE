@@ -4,8 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 30px;
-  /* padding: 0px 40px; */
+  gap: 40px;
 }
 .imgContainer {
   height:550px;
@@ -44,7 +43,48 @@
 }
 .men {
   color:black;
+  margin: 0%;
 }
 .title {
   font-size: 3.3rem;
+  margin: 0%;
+}
+.priceContainer  {
+  display: flex;
+  align-items: end;
+  margin-bottom: 0%;
+}
+.price {
+  font-size: 2rem;
+}
+.shipping {
+  font-size: 1.012rem;
+  margin-bottom:22px;
+  margin-left: 6px;
+  font-family: sans-serif;
+}
+.cartContainer {
+  margin-bottom: 20px;
+  height:50px;
+  width:330px;
+  display: flex;
+  align-items: center;
+}
+.dropDown {
+  border:1 px solid black;
+  border-radius: 2px;
+  margin-right: 10px;
+  height: 40px;
+  width:60px;
+  padding: 3px;
+
+}
+.CartButton{
+  height: 40px;
+  width:250px;
+  background-color: #0084d6;
+  color: white;
+  font-family: sans-serif;
+  font-weight: 500;
+  border: none;
 }

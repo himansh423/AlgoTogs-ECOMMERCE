@@ -1,17 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
-const productEverthingSlice = createSlice({
-  name:"productEverything",
-  initialState:{
-    ProductEvery:[],
-    style: {
-      visibility: "hidden",
-      transition: "visibility 0.9s ease",
-      resultInitial:1,
-      resultEnd:12,
-      totalResult:0,
-    },
+const productEverythingSlice = createSlice({
+  name: "productEverything",
+  initialState: {
+    ProductEvery: [],
+    style: {},
+    resultInitial: 1,
+    resultEnd: 12,
+    totalResult: 0,
   },
   reducers: {
     stylingOver: (state, action) => {
@@ -33,33 +29,21 @@ const productEverthingSlice = createSlice({
         },
       };
     },
-    everythingData: (state,action) => {
-      const {data} = action.payload;
+    everythingData: (state, action) => {
+      const { data } = action.payload;
       state.ProductEvery = data;
     },
-    totalResult: (state,action) => {
-        const {total} = action.payload;
-        state.totalResult = total;
+    totalResult: (state, action) => {
+      const { total } = action.payload;
+      state.totalResult = total;
     },
-    resultChange: (state,action) => {
-      const {page} = action.payload;
-      if(page === 1){
-        state.resultInitial = 1;
-        state.resultEnd = 12;
-      }
-      else if(page === 2){
-        state.resultInitial = 13;
-        state.resultEnd = 24;
-      }
-      else if(page === 3){
-        state.resultInitial = 25;
-        state.resultEnd = 31;
-      }
-    }
+    resultChange: (state, action) => {
+      const { resultInitial, resultEnd } = action.payload;
+      state.resultInitial = resultInitial;
+      state.resultEnd = resultEnd;
+    },
+  },
+});
 
-  }
-})
-
-
-export const productEverthingAction = productEverthingSlice.actions;
-export default productEverthingSlice;
+export const productEverthingAction = productEverythingSlice.actions;
+export default productEverythingSlice;

@@ -14,36 +14,68 @@ const Everything = () => {
   const dropdownRef = useRef(null);
   const { product } = useSelector((store) => store.sellerEverything);
   const { min, max } = useSelector((store) => store.filterEverything);
-  const { ProductEvery, style, resultInitial,totalResult, resultEnd } = useSelector(
-    (store) => store.productEveryThing
-  );
+  const { ProductEvery, style, resultInitial, totalResult, resultEnd } =
+    useSelector((store) => store.productEveryThing);
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [isFilterActive, setIsFilterActive] = useState(false);
-  const [sortOption, setSortOption] = useState('');
+  const [sortOption, setSortOption] = useState("");
 
   const [display, setDisplay] = useState({
     display: "none",
   });
   const MinRangeInput = useRef(null);
   const MaxRangeInput = useRef(null);
-
+  const searchInput = useRef(null);
   const handleOnMouseOver = (id) => {
     dispatch(productEverthingAction.stylingOver({ cardId: id }));
   };
+  const handleSearch = () => {
+    const input = searchInput.current.value;
+    if (input.trim() !== "") {
+      // Clear previous timer
+      clearTimeout(searchTimer);
+
+      // Set new timer
+      searchTimer = setTimeout(async () => {
+        try {
+          const res = await axios.get(
+            `http://localhost:8080/everything?products=${input}`
+          );
+          console.log(res.data);
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      }, 2000);
+    }
+  };
+
+  let searchTimer;
 
   const handleOnMouseLeave = (id) => {
     dispatch(productEverthingAction.stylingLeave({ cardId: id }));
   };
 
   const ResultsEvery = async () => {
+    const res = await axios.get(`http://localhost:8080/everything`);
+    const { totalCount } = res.data;
+    dispatch(productEverthingAction.totalResult({ total: totalCount }));
+  };
+  const ResultsEveryFilter = async () => {
+    const queryParams = new URLSearchParams({
+      page: currentPage.toString(),
+      min: min.toString(),
+      max: max.toString(),
+      sort: sortOption,
+    });
+
     const res = await axios.get(
-      `http://localhost:8080/everything`
+      `http://localhost:8080/everything/filteredProducts?${queryParams.toString()}`
     );
-    const {totalCount} = res.data;
-    dispatch(productEverthingAction.totalResult({total:totalCount}));
-  }
+    const { totalCount } = res.data;
+    dispatch(productEverthingAction.totalResult({ total: totalCount }));
+  };
 
   const getProductEverything = async () => {
     const queryParams = new URLSearchParams({
@@ -56,7 +88,15 @@ const Everything = () => {
     const { products, totalCount } = res.data;
     const calculatedTotalPages = Math.ceil(totalCount / 12);
     setTotalPages(calculatedTotalPages);
+    const startIndex = (currentPage - 1) * 12 + 1;
+    const endIndex = startIndex + products.length - 1;
     dispatch(productEverthingAction.everythingData({ data: products }));
+    dispatch(
+      productEverthingAction.resultChange({
+        resultInitial: startIndex,
+        resultEnd: endIndex,
+      })
+    );
   };
 
   const getFilteredProducts = async () => {
@@ -71,9 +111,17 @@ const Everything = () => {
       `http://localhost:8080/everything/filteredProducts?${queryParams.toString()}`
     );
     const { products, totalCount } = res.data;
-    const calculatedTotalPages = Math.ceil((totalCount+1) / 12);
+    const calculatedTotalPages = Math.ceil(totalCount / 12);
     setTotalPages(calculatedTotalPages);
+    const startIndex = (currentPage - 1) * 12 + 1;
+    const endIndex = startIndex + products.length - 1;
     dispatch(productEverthingAction.everythingData({ data: products }));
+    dispatch(
+      productEverthingAction.resultChange({
+        resultInitial: startIndex,
+        resultEnd: endIndex,
+      })
+    );
   };
 
   const cartAdd = async (id) => {
@@ -105,16 +153,17 @@ const Everything = () => {
   useEffect(() => {
     if (isFilterActive) {
       getFilteredProducts();
+      ResultsEveryFilter();
     } else {
       getProductEverything();
       ResultsEvery();
     }
-  }, [currentPage, isFilterActive, sortOption,totalPages]);
+  }, [currentPage, isFilterActive, sortOption, totalPages]);
 
   const handleSort = (event) => {
     const selectedSortOption = event.target.value;
     setSortOption(selectedSortOption);
-    setCurrentPage(1); // Reset currentPage to 1 when sorting
+    setCurrentPage(1);
   };
 
   const handleMinRangeChange = () => {
@@ -176,6 +225,12 @@ const Everything = () => {
             <input
               placeholder="Search Products.."
               className={styles.searchInput}
+              onChange={() => {
+                setTimeout(() => {
+                  handleSearch();
+                }, 2000);
+              }}
+              ref={searchInput}
             />
             <GrNext className={styles.buttonOfSearch} />
           </div>
@@ -277,7 +332,8 @@ const Everything = () => {
               <p className={styles.slashHome}>Home/Products</p>
               <p className={styles.showing}>
                 Showing <span>{resultInitial ? resultInitial : 1}</span>-
-                <span>{resultEnd ? resultEnd : 12}</span> of {totalResult} Results
+                <span>{resultEnd ? resultEnd : 12} of</span>{" "}
+                {isFilterActive ? null : totalResult} Results
               </p>
             </div>
             <select
@@ -346,7 +402,7 @@ const Everything = () => {
                     </button>
                   );
                 })
-              : [1,2,3,4].map((_, index) => {
+              : [1, 2, 3, 4].map((_, index) => {
                   const pageNumber = index + 1;
                   return (
                     <button
