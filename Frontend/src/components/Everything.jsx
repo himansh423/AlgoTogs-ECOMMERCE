@@ -5,14 +5,17 @@ import { GrNext } from "react-icons/gr";
 import { MdAddShoppingCart } from "react-icons/md";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import img from "../assets/tsh2.jpg";
 import { Link } from "react-router-dom";
 import { productEverthingAction } from "../store/productEverything";
 import { cartAction } from "../store/cart";
 import { filterEverythingActions } from "../store/filterEverything";
+import { SearchAction } from "../store/Search";
 
 const Everything = () => {
   const dropdownRef = useRef(null);
   const { product } = useSelector((store) => store.sellerEverything);
+  const {searchItem} = useSelector((store) => store.Search);
   const { min, max } = useSelector((store) => store.filterEverything);
   const { ProductEvery, style, resultInitial, totalResult, resultEnd } =
     useSelector((store) => store.productEveryThing);
@@ -34,20 +37,21 @@ const Everything = () => {
   const handleSearch = () => {
     const input = searchInput.current.value;
     if (input.trim() !== "") {
-      // Clear previous timer
       clearTimeout(searchTimer);
-
-      // Set new timer
       searchTimer = setTimeout(async () => {
         try {
           const res = await axios.get(
             `http://localhost:8080/everything?products=${input}`
           );
-          console.log(res.data);
+          const {products} = res.data;
+          dispatch(SearchAction.searchResult({data:products}));
         } catch (error) {
           console.error("Error:", error);
         }
-      }, 2000);
+      }, 200);
+    }
+    else if(input === '') {
+      dispatch(SearchAction.searchEmpty());
     }
   };
 
@@ -228,11 +232,23 @@ const Everything = () => {
               onChange={() => {
                 setTimeout(() => {
                   handleSearch();
-                }, 2000);
+                }, 200);
               }}
               ref={searchInput}
             />
             <GrNext className={styles.buttonOfSearch} />
+          </div>
+          <div className={styles.searchSuggestion}>
+            {searchItem.map((item) => (<div className={styles.itemSearch}>
+              <img src={item.img} alt="" />
+              <div className={styles.detailsSerc}>
+                <p>{item.title}</p>
+                <p>
+                  <del>{item.cuttedPrice}</del>
+                  {item.price}
+                </p>
+              </div>
+            </div>))}
           </div>
           <div className={styles.filterDiv}>
             <p className={styles.filterText}>Filter by Price</p>

@@ -38,6 +38,24 @@
   padding: 7px;
   color: white;
 }
+.searchSuggestion {
+  width:280px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top:240px;
+  z-index: 3;
+}
+.itemSearch {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  border-bottom: 1px solid #dddddd;
+}
+.detailsSerc p {
+  margin: 0%;
+}
 .filterDiv {
   width: 250px;
   margin-top: 20px;

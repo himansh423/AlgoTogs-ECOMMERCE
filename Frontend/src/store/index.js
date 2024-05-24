@@ -9,6 +9,8 @@ import sellerEverythingSlice from "./sellerEverything";
 import loaderSlice from "./loader";
 import productEverthingSlice from "./productEverything";
 import filterEverythingSlice from "./filterEverything";
+import SearchSlice from "./Search";
+import ProductRenderSlice from "./ProductRender";
 
 const eComStore = configureStore({
   reducer : {
@@ -22,6 +24,8 @@ const eComStore = configureStore({
     loader:loaderSlice.reducer,
     productEveryThing:productEverthingSlice.reducer,
     filterEverything:filterEverythingSlice.reducer,
+    Search:SearchSlice.reducer,
+    ProductRender:ProductRenderSlice.reducer,
   } 
 })
 
