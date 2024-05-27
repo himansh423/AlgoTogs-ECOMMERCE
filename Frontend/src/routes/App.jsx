@@ -6,17 +6,19 @@ import { useSelector } from "react-redux";
 import LoaderC from "../components/Loader";
 
 function App() {
-  const { loading } = useSelector((store) => store.loader);
-  const handlePosition = () => {
-    if (loading) {
-      return "fixed";
-    }
-    return "unset";
-  };
+  // const { loading } = useSelector((store) => store.loader);
+  // const handlePosition = () => {
+  //   if (loading) {
+  //     return "fixed";
+  //   }
+  //   return "unset";
+  // };
   return (
-    <div style={{ position: handlePosition() }}>
+    <div
+    //  style={{ position: handlePosition() }}
+     >
       <Header />
-      {loading ? <LoaderC /> : null}
+      {/* {loading ? <LoaderC /> : null} */}
       <Outlet />
       <Footer />
     </div>

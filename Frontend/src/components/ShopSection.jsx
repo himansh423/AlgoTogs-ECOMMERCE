@@ -56,11 +56,7 @@ const ShopSection = () => {
     );
     dispatch(cartAction.addCartItem({ data: postData }));
   };
-  const handleRenderProduct = async (title) => {
-       const res = await axios.get(`http://localhost:8080/producthome?products=${title}`);
-       const {product} = res.data;
-       dispatch(ProductRenderAction.ProductClicked({data:product}));
-  }
+
   useEffect(() => {
     getProductHome();
   }, []);
@@ -75,7 +71,6 @@ const ShopSection = () => {
             className={styles.shopCard}
             onMouseOver={() => handleOnMouseOver(shopCard._id)}
             onMouseLeave={() => handleOnMouseLeave(shopCard._id)}
-            onClick={() => handleRenderProduct(shopCard.title)}
           >
             <MdAddShoppingCart
               className={styles.carticon}

@@ -1,16 +1,19 @@
-import styles from "./Product.module.css";
+import styles from "./ProductEvery.module.css";
 import { useLoaderData } from "react-router-dom";
 import img1 from "../assets/tsh2.jpg";
 import img2 from "../assets/blue.webp";
 import img4 from "../assets/tshirtHU.webp";
-import axios from "axios";
 
-const Product = () => {
-  const productRender = useLoaderData();
+const ProductEvery = () => {
+  const productRenderEvery = useLoaderData();
+
+  if (!productRenderEvery || productRenderEvery.length === 0) {
+    return <p>No products available</p>; // Fallback UI
+  }
 
   return (
     <main>
-      {productRender.map((item) => (
+      {productRenderEvery.map((item) => (
         <div key={item.id} className={styles.productContainer}>
           <div className={styles.parentContainer}>
             <div className={styles.imgContainer}>
@@ -50,9 +53,7 @@ const Product = () => {
               <a href="#review">Review</a>
             </div>
             <p className={styles.Pdesc}>Product Description</p>
-            <p className={styles.description}>
-              {item.longDescription}
-            </p>
+            <p className={styles.description}>{item.longDescription}</p>
           </div>
 
           <div className={styles.imageDesc}>
@@ -91,18 +92,22 @@ const Product = () => {
   );
 };
 
-export const ProductLoader = async ({ params }) => {
+import axios from "axios";
+
+export const ProductLoaderEvery = async ({ params }) => {
   const { title } = params;
   try {
-    const res = await axios.get(
-      `http://localhost:8080/producthome?products=${title}`
-    );
+    const res = await axios.get(`http://localhost:8080/everything?producttitle=${title}`);
     const { product } = res.data;
+    if (!product) {
+      throw new Error("No product data found");
+    }
+    console.log("Product data fetched:", product); // Log the data for debugging
     return product;
   } catch (error) {
     console.error("Error fetching product:", error);
-    return [];
+    return []; // Return an empty array if there is an error
   }
 };
 
-export default Product;
+export default ProductEvery;

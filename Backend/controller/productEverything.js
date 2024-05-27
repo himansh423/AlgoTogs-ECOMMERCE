@@ -5,6 +5,7 @@ const productEverything = model.productEverything;
 exports.getProductEverything = async (req, res) => {
   let query = productEverything.find();
   let pageSize = 12;
+  const title = req.query.producttitle;
   let page = req.query.page || 1;
   const input = req.query.products;
   if(req.query.products){
@@ -18,6 +19,15 @@ exports.getProductEverything = async (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   
+  }
+  else if (req.query.producttitle) {
+    try {
+      const product = await productEverything.find({ title: title }).exec();
+      res.json({ product });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
   }
  
   else if (req.query.sort) {

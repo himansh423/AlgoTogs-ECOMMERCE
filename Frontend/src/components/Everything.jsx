@@ -56,7 +56,48 @@ const Everything = () => {
   };
 
   let searchTimer;
+  
 
+  const SearchClick = async () => {
+    const input = searchInput.current.value;
+    if (input.trim() !== "") {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(async () => {
+        try {
+          const res = await axios.get(
+            `http://localhost:8080/everything?products=${input}`
+          );
+          const {products} = res.data;
+          dispatch(productEverthingAction.everythingData({data:products}));
+          dispatch(SearchAction.searchEmpty());
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      }, 200);
+    }
+    else if(input === '') {
+      dispatch(SearchAction.searchEmpty());
+      const queryParams = new URLSearchParams({
+        page: currentPage.toString(),
+        sort: sortOption,
+      });
+      const res = await axios.get(
+        `http://localhost:8080/everything?${queryParams.toString()}`
+      );
+      const { products, totalCount } = res.data;
+      const calculatedTotalPages = Math.ceil(totalCount / 12);
+      setTotalPages(calculatedTotalPages);
+      const startIndex = (currentPage - 1) * 12 + 1;
+      const endIndex = startIndex + products.length - 1;
+      dispatch(productEverthingAction.everythingData({ data: products }));
+      dispatch(
+        productEverthingAction.resultChange({
+          resultInitial: startIndex,
+          resultEnd: endIndex,
+        })
+      );
+    }
+  }
   const handleOnMouseLeave = (id) => {
     dispatch(productEverthingAction.stylingLeave({ cardId: id }));
   };
@@ -220,6 +261,7 @@ const Everything = () => {
       display: "unset",
     });
   };
+  
 
   return (
     <main className={styles.parentConatiner}>
@@ -236,10 +278,12 @@ const Everything = () => {
               }}
               ref={searchInput}
             />
-            <GrNext className={styles.buttonOfSearch} />
+            <GrNext className={styles.buttonOfSearch} onClick={SearchClick} />
           </div>
-          <div className={styles.searchSuggestion}>
-            {searchItem.map((item) => (<div className={styles.itemSearch}>
+          <div  className={styles.searchSuggestion}>
+            {searchItem.map((item) => (<Link
+            to={`/store/product/${item.title}`}
+            className={styles.itemSearch}>
               <img src={item.img} alt="" />
               <div className={styles.detailsSerc}>
                 <p>{item.title}</p>
@@ -248,7 +292,7 @@ const Everything = () => {
                   {item.price}
                 </p>
               </div>
-            </div>))}
+            </Link>))}
           </div>
           <div className={styles.filterDiv}>
             <p className={styles.filterText}>Filter by Price</p>
@@ -366,7 +410,9 @@ const Everything = () => {
           </div>
           <div className={styles.containerHEhe}>
             {ProductEvery.map((product) => (
-              <div
+              <Link
+              to={`/store/product/${product.title}`}
+                
                 key={product._id}
                 className={styles.shopCard}
                 onMouseOver={() => handleOnMouseOver(product._id)}
@@ -393,7 +439,7 @@ const Everything = () => {
                     <span className="fa fa-star"></span>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
           <div className={styles.buttons}>

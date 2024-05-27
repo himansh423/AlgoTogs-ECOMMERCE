@@ -32,7 +32,7 @@ const cartSlice = createSlice({
       state.initialCartItem = data;
       state.total = calculateTotal(state.cartItem, state.initialCartItem);
     },
-    deleteCartItem: (state, action) => {
+    deleteCartItem: (state, action) => { 
       const { _id } = action.payload;
       state.cartItem = state.cartItem.filter((item) => item._id !== _id);
       state.initialCartItem = state.initialCartItem.filter((item) => item._id !== _id);

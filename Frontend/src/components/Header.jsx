@@ -43,9 +43,9 @@ const handleCartClick = () => {
           <a className={styles.links}>
             <FaShoppingCart onClick={handleCartClick}/>
           </a>
-          <a className={styles.links} href="">
+          <Link to="/login" className={styles.links} href="">
             <FaUserAlt />
-          </a>
+          </Link>
         </div>
       </div>
     </header>

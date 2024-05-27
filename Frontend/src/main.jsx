@@ -12,6 +12,10 @@ import AccessoriesStore from "./parentComponent/AccessoriesStore.jsx";
 import ContactPage from "./parentComponent/ContactPage.jsx";
 import CartPage from "./parentComponent/CartPage.jsx";
 import ProductPage from "./parentComponent/ProductPage.jsx";
+import { ProductLoader } from "./components/Product.jsx";
+import { ProductLoaderEvery } from "./components/ProductEvery.jsx";
+import ProductPageEvery from "./parentComponent/ProductPageEvery.jsx";
+import LoginSignUp from "./components/LoginSignUp.jsx";
 
  
 const router = createBrowserRouter([
@@ -49,7 +53,19 @@ const router = createBrowserRouter([
       },
       {
         path:"/product/:title",
-        element:<ProductPage/>
+        element:<ProductPage/>,
+        loader:ProductLoader,
+      }
+      ,
+      {
+        path:"/store/product/:title",
+        element:<ProductPageEvery/>,
+        loader:ProductLoaderEvery,
+      }
+      ,
+      {
+        path:"/login",
+        element:<LoginSignUp/>,
       }
     ],
   },

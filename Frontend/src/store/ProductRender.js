@@ -3,13 +3,12 @@ import { createSlice } from "@reduxjs/toolkit";
 const ProductRenderSlice = createSlice({
   name:"ProductRender",
   initialState:{
-    productRender:[]
+    productRender:[],
   },
   reducers:{
-    ProductClicked: (state,action) => {
-      const {data} = action.payload;
-      state.productRender = data;
-      state.productRender = state.productRender.filter((item) => item.title !== data.title); 
+    ProductURL: (state, action) => {
+       const {data} = action.payload;
+       state.productRender = data;
     }
   }
 })
